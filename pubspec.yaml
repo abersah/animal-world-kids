@@ -1,0 +1,25 @@
+name: animal_world_jungle_theme
+description: Child-friendly jungle themed animal quiz Flutter frontend.
+publish_to: 'none'
+version: 1.7.1+171
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/backgrounds/jungle_home.png
+    - assets/profile/minik_kasif.png
+    - assets/sounds/
+    - assets/images/animals/
