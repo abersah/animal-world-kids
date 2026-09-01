@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Java 17 kur
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -23,26 +23,28 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Android dosyalarını oluştur
+      - name: Android altyapisini olustur
         run: |
           flutter create \
             --platforms=android \
             --org com.animalworldkids \
             --project-name animal_world_jungle_theme \
-            .
+            /tmp/animal_world_android
 
-      - name: Paketleri yükle
+          cp -R /tmp/animal_world_android/android ./android
+
+      - name: Paketleri yukle
         run: flutter pub get
 
-      - name: APK oluştur
+      - name: APK olustur
         run: flutter build apk --release
 
-      - name: APK adını değiştir
+      - name: APK adini degistir
         run: |
           cp build/app/outputs/flutter-apk/app-release.apk \
           build/app/outputs/flutter-apk/Animal_World_Kids_V17_1.apk
 
-      - name: APK'yı yükle
+      - name: APK dosyasini kaydet
         uses: actions/upload-artifact@v4
         with:
           name: Animal-World-Kids-V17-1-APK
