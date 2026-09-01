@@ -1,0 +1,49 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Projeyi indir
+        uses: actions/checkout@v4
+
+      - name: Java 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Flutter kur
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Android dosyalarını oluştur
+        run: |
+          flutter create \
+            --platforms=android \
+            --org com.animalworldkids \
+            --project-name animal_world_jungle_theme \
+            .
+
+      - name: Paketleri yükle
+        run: flutter pub get
+
+      - name: APK oluştur
+        run: flutter build apk --release
+
+      - name: APK adını değiştir
+        run: |
+          cp build/app/outputs/flutter-apk/app-release.apk \
+          build/app/outputs/flutter-apk/Animal_World_Kids_V17_1.apk
+
+      - name: APK'yı yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Animal-World-Kids-V17-1-APK
+          path: build/app/outputs/flutter-apk/Animal_World_Kids_V17_1.apk
